@@ -39,9 +39,6 @@ if (isset($_SESSION['success_msg'])) {
 
 
 
-
-<div class="ft">
-
 <form action="" method="POST">
     <label for="first_name">First Name:</label>
     <input type="text" id="first_name" name="first_name" required><br>
@@ -57,9 +54,9 @@ if (isset($_SESSION['success_msg'])) {
 
     <input type="submit" value="Add Student">
 </form>
-</div>
-<br><br><br><br>
-<div class="tbox"><h2>Display success or error messages</h2>
+
+<div class="tbox">
+<h2>Display success or error messages</h2>
 
 
 <?php if (!empty($success_msg)): ?>
@@ -73,4 +70,5 @@ if (isset($_SESSION['success_msg'])) {
         <p>No messages available.</p>
     </div>
 <?php endif; ?>
+
 </div>

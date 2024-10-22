@@ -1,8 +1,12 @@
+<?php include 'header.php';?>
 
+<div class="mycontainer">
+<?php include 'add_student.php'; ?>
+</div>
 
+<div class ="mycontainer">
+<?php include 'view_students.php'; ?>
+</div>
 <?php
-include 'header.php';
-include 'add_student.php';
-include 'view_students.php';
 include 'footer.php';
 ?>

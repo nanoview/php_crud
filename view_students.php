@@ -4,7 +4,7 @@ include 'db_connect.php';
 $sql = "SELECT id, first_name, last_name, email, phone, created_at FROM students";
 $result = $conn->query($sql);
 
-echo '<div class = "ft">';
+
 if ($result->num_rows > 0) {
     echo "<h1>Students List</h1>";
     echo '<table id="customers">
@@ -32,7 +32,7 @@ if ($result->num_rows > 0) {
               </tr>";
     }
     echo "</table>";
-    echo '</div>';
+
 } else {
     echo "0 students found.";
 }

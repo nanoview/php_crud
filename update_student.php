@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         echo "Student updated successfully.";
         // Redirect back to view page after update
-        header("index.php");
+        header("Location: view_students.php");
         exit();
     } else {
         echo "Error updating student: " . $conn->error;
