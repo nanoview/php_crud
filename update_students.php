@@ -15,6 +15,7 @@ if ($result->num_rows > 0) {
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Created At</th>
+                <th>Action</th>
             </tr>';
     while($row = $result->fetch_assoc()) {
         echo "<tr>
@@ -24,7 +25,9 @@ if ($result->num_rows > 0) {
                 <td>".$row['email']."</td>
                 <td>".$row['phone']."</td>
                 <td>".$row['created_at']."</td>
-                
+                 <td>
+                    <a href='update_student.php?id=".$row['id']."'>Update</a>
+                </td>
               </tr>";
     }
     echo "</table>";
@@ -35,8 +38,3 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-<!-- <td>
-                   <a href='update_student.php?id=".$row['id']."'>Update</a> | 
-                    <a href='delete_student.php?id=".$row['id']."' onclick='return confirm(\"Are you sure?\")'>Delete</a>
-                </td>
--->

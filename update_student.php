@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         echo "Student updated successfully.";
         // Redirect back to view page after update
-        header("Location: view_students.php");
+        header("Location: index.php");
         exit();
     } else {
-        echo "Error updating student: " . $conn->error;
+        echo "Error updating student: couldn't find any row to update" . $conn->error;
     }
 }
 ?>
