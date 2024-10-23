@@ -37,6 +37,7 @@ $conn->close();
 ?>
 <!-- <td>
                    <a href='update_student.php?id=".$row['id']."'>Update</a> | 
+                   Arif20*24@
                     <a href='delete_student.php?id=".$row['id']."' onclick='return confirm(\"Are you sure?\")'>Delete</a>
                 </td>
 -->

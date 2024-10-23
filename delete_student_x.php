@@ -1,8 +1,7 @@
 <?php
 include 'db_connect.php';
 session_start();
-$success_msg = '';
-$error_msg = '';
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
