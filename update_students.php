@@ -2,7 +2,7 @@
 if (headers_sent($file, $line)) {
     die("Headers already sent in $file on line $line");
 }
-ob_start();
+//ob_start();
 include 'db_connect.php';
 
 $sql = "SELECT id, first_name, last_name, email, phone, created_at FROM students";
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
                 <td>" . $row['phone'] . "</td>
                 <td>" . $row['created_at'] . "</td>
                  <td>
-                    <a href='update_student.php?id=" . $row['id'] . "'>Update</a>
+                    <a href='update_action_student.php?id=" . $row['id'] . "' class='action_link'>Update</a>
                 </td>
               </tr>";
     }
@@ -40,4 +40,4 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-ob_end_flush();
+//ob_end_flush();

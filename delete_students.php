@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
                 <td>" . htmlspecialchars($row['phone']) . "</td>
                 <td>" . htmlspecialchars($row['created_at']) . "</td>
                 <td>
-                    <a href='delete_student.php?id=" . htmlspecialchars($row['id']) . "' onclick='return confirm(\"Are you sure?\")'>Delete</a>
+                    <a href='delete_action_student.php?id=" . htmlspecialchars($row['id']) . "' onclick='return confirm(\"Are you sure?\")'>Delete</a>
                 </td>
               </tr>";
     }
@@ -40,4 +40,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>

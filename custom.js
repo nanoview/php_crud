@@ -26,3 +26,18 @@ function update_student() {
 function delete_student() {
     showSection("deleteStudent");
 }
+
+$(document).ready(function() {
+    $('.delete-btn').click(function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: 'delete_action_student.php',
+            type: 'POST',
+            data: { delete_id: id },
+            success: function(response) {
+                $('#row-' + id).remove();
+                alert(response);
+            }
+        });
+    });
+});

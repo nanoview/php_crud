@@ -37,6 +37,6 @@ if (isset($_SESSION['success_msg'])) {
 ?>
 
 
-
+<h1 style="color: fuchsia">Add student in the form below.</h1>
 
 <?php include 'form.php'; ?>

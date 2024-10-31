@@ -24,8 +24,8 @@ if (isset($_GET['id'])) {
     $stmt->close();
 } else {
     // Redirect if no id is provided
-    header("Location: index.php");
-    exit();
+    //header("Location: index.php");
+    //exit();
 }
 
 $conn->close();
