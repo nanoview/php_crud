@@ -31,4 +31,4 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close(); // This line must be before any output, ensure db_connect.php has no output before this point
-?>
+

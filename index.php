@@ -2,7 +2,7 @@
 
 
 
-<div class="mycontainer">
+<div class="myContainer">
     <div class="box">
         <button class="button" onclick="showForm()">Add student</button>
     </div>

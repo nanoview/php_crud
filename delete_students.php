@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
                 <td>" . htmlspecialchars($row['phone']) . "</td>
                 <td>" . htmlspecialchars($row['created_at']) . "</td>
                 <td>
-                    <a href='delete_action_student.php?id=" . htmlspecialchars($row['id']) . "' onclick='return confirm(\"Are you sure?\")'>Delete</a>
+                <a href='#' class='delete-btn' data-id='" .htmlspecialchars($row['id']) ."' onclick='return false;'>Delete</a>                  
                 </td>
               </tr>";
     }

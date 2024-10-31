@@ -15,17 +15,17 @@ if (isset($_GET['id'])) {
 
     if ($stmt->execute()) {
         // Redirect back to the student list after deletion
-        header("Location: index.php");
+        header("Location: index.php#deleteStudent");
         exit();
     } else {
-        echo "Error deleting student: " . $conn->error;
+$delete_msg. $conn->error;
     }
 
     $stmt->close();
 } else {
     // Redirect if no id is provided
-    //header("Location: index.php");
-    //exit();
+    header("Location: index.php");
+    exit();
 }
 
 $conn->close();

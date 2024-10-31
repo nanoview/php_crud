@@ -37,6 +37,7 @@ $(document).ready(function() {
             success: function(response) {
                 $('#row-' + id).remove();
                 alert(response);
+                delete_student();
             }
         });
     });

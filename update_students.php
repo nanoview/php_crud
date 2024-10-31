@@ -1,6 +1,11 @@
 <?php
+ob_start();
 if (headers_sent($file, $line)) {
     die("Headers already sent in $file on line $line");
+}
+// Start session if it’s not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
 //ob_start();
 include 'db_connect.php';
@@ -40,4 +45,4 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-//ob_end_flush();
+ob_end_flush();
