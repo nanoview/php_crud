@@ -45,4 +45,4 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-ob_end_flush();
+ob_flush();

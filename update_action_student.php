@@ -1,5 +1,4 @@
 <?php
-// Start output buffering at the very beginning to prevent "Headers already sent" issues
 ob_start();
 include 'db_connect.php';
 
@@ -33,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $_POST['phone'];
 
     $stmt = $conn->prepare("UPDATE students SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE id = ?");
-    $stmt->bind_param("ssssi", $first_name, $last_name, $email, $phone, $id);
+    $stmt->bind_param( $first_name, $last_name, $email, $phone, $id);
 
     if ($stmt->execute()) {
         // Redirect after a successful update

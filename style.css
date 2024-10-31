@@ -255,7 +255,7 @@ ft {
   width: 40%;
 }
 
-.tbox {
+.tBox {
   text-align: center;
   color: fuchsia;
   margin-left: auto;
@@ -266,7 +266,7 @@ ft {
 
 
 
-.boxb {
+.boxB {
   background: yellow;
   width: 300px;
   height: 100px;
@@ -280,7 +280,7 @@ ft {
 }
 
 
-.boxc {
+.boxC {
   background: yellowgreen;
   width: 300px;
   height: 100px;

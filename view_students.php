@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include 'db_connect.php'; // Ensure this file has no output before this point
 
 $sql = "SELECT id, first_name, last_name, email, phone, created_at FROM students";
@@ -32,3 +33,4 @@ if ($result->num_rows > 0) {
 
 $conn->close(); // This line must be before any output, ensure db_connect.php has no output before this point
 
+ob_end_flush();
