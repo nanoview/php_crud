@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 include 'db_connect.php'; // Ensure this file does not output anything before this point
 
 // Start session if it’s not already started

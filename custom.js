@@ -26,3 +26,18 @@ function update_student() {
 function delete_student() {
     showSection("deleteStudent");
 }
+
+function deleteRow(id) {
+    $.ajax({
+        url: 'delete_action.php',
+        type: 'POST',
+        data: { id: id },
+        success: function(response) {
+            if(response == 1) {
+                $('#row_' + id).remove();
+            } else {
+                alert('Failed to delete the row.');
+            }
+        }
+    });
+}

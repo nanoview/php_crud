@@ -1,5 +1,5 @@
 <?php
-// Start session at the beginning of the script to handle messages
+
 session_start();
 
 // Include database connection
@@ -34,6 +34,7 @@ if (isset($_SESSION['success_msg'])) {
     $success_msg = $_SESSION['success_msg'];
     unset($_SESSION['success_msg']);  // Clear the message after displaying
 }
+
 ?>
 
 

@@ -1,18 +1,21 @@
 <?php
+
 ob_start();
+
+// Check if headers are already sent
 if (headers_sent($file, $line)) {
     die("Headers already sent in $file on line $line");
 }
+
 // Start session if it’s not already started
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-//ob_start();
+
 include 'db_connect.php';
 
 $sql = "SELECT id, first_name, last_name, email, phone, created_at FROM students";
 $result = $conn->query($sql);
-
 
 if ($result->num_rows > 0) {
     echo "<h1>Update Students List</h1>";
@@ -28,21 +31,20 @@ if ($result->num_rows > 0) {
             </tr>';
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
-                <td>" . $row['id'] . "</td>
-                <td>" . $row['first_name'] . "</td>
-                <td>" . $row['last_name'] . "</td>
-                <td>" . $row['email'] . "</td>
-                <td>" . $row['phone'] . "</td>
-                <td>" . $row['created_at'] . "</td>
-                 <td>
-                    <a href='update_action_student.php?id=" . $row['id'] . "' class='action_link'>Update</a>
-                </td>
+                <td>" . htmlspecialchars($row['id']) . "</td>
+                <td>" . htmlspecialchars($row['first_name']) . "</td>
+                <td>" . htmlspecialchars($row['last_name']) . "</td>
+                <td>" . htmlspecialchars($row['email']) . "</td>
+                <td>" . htmlspecialchars($row['phone']) . "</td>
+                <td>" . htmlspecialchars($row['created_at']) . "</td>
+                <td><a href='update_action_student.php?id=" . htmlspecialchars($row['id']) . "' class='action_link'>Update</a></td>
               </tr>";
     }
     echo "</table>";
 } else {
-    echo "0 students found.";
+    echo "<p>0 students found.</p>";
 }
 
+// Close the database connection
 $conn->close();
-ob_flush();
+//ob_end_flush();

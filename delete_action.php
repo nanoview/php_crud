@@ -1,4 +1,6 @@
 <?php
+ob_start();
+
 // Start the session at the beginning
 session_start();
 
@@ -15,7 +17,7 @@ if (isset($_GET['id'])) {
 
     if ($stmt->execute()) {
         // Redirect back to the student list after deletion
-        header("Location: index.php#deleteStudent");
+        header("Location: index.php");
         exit();
     } else {
 $delete_msg. $conn->error;

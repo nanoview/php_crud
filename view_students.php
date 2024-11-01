@@ -1,6 +1,8 @@
 <?php
-ob_start();
-include 'db_connect.php'; // Ensure this file has no output before this point
+//ob_clean();
+ob_start(); // Start a single output buffer
+
+include 'db_connect.php'; // Ensure this file has no output at all
 
 $sql = "SELECT id, first_name, last_name, email, phone, created_at FROM students";
 $result = $conn->query($sql);
@@ -18,12 +20,12 @@ if ($result->num_rows > 0) {
             </tr>';
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
-                <td>" . $row['id'] . "</td>
-                <td>" . $row['first_name'] . "</td>
-                <td>" . $row['last_name'] . "</td>
-                <td>" . $row['email'] . "</td>
-                <td>" . $row['phone'] . "</td>
-                <td>" . $row['created_at'] . "</td>
+                <td>" . htmlspecialchars($row['id']) . "</td>
+                <td>" . htmlspecialchars($row['first_name']) . "</td>
+                <td>" . htmlspecialchars($row['last_name']) . "</td>
+                <td>" . htmlspecialchars($row['email']) . "</td>
+                <td>" . htmlspecialchars($row['phone']) . "</td>
+                <td>" . htmlspecialchars($row['created_at']) . "</td>
               </tr>";
     }
     echo "</table>";
@@ -31,6 +33,7 @@ if ($result->num_rows > 0) {
     echo "0 students found.";
 }
 
-$conn->close(); // This line must be before any output, ensure db_connect.php has no output before this point
+$conn->close();
 
-ob_end_flush();
+//ob_end_flush(); // Flush the single buffer and output content
+

@@ -7,7 +7,3 @@ $dbname = "students_db";
 // Create connection
 $conn = new mysqli($serverName, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die($conn->connect_error);
-}
