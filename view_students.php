@@ -1,5 +1,5 @@
 <?php
-//ob_clean();
+
 ob_start(); // Start a single output buffer
 
 include 'db_connect.php'; // Ensure this file has no output at all

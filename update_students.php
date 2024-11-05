@@ -2,15 +2,6 @@
 
 ob_start();
 
-// Check if headers are already sent
-if (headers_sent($file, $line)) {
-    die("Headers already sent in $file on line $line");
-}
-
-// Start session if it’s not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 include 'db_connect.php';
 
@@ -31,14 +22,14 @@ if ($result->num_rows > 0) {
             </tr>';
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
-                <td>" . htmlspecialchars($row['id']) . "</td>
-                <td>" . htmlspecialchars($row['first_name']) . "</td>
-                <td>" . htmlspecialchars($row['last_name']) . "</td>
-                <td>" . htmlspecialchars($row['email']) . "</td>
-                <td>" . htmlspecialchars($row['phone']) . "</td>
-                <td>" . htmlspecialchars($row['created_at']) . "</td>
-                <td><a href='update_action_student.php?id=" . htmlspecialchars($row['id']) . "' class='action_link'>Update</a></td>
-              </tr>";
+        <td>" . htmlspecialchars($row['id']) . "</td>
+        <td>" . htmlspecialchars($row['first_name']) . "</td>
+        <td>" . htmlspecialchars($row['last_name']) . "</td>
+        <td>" . htmlspecialchars($row['email']) . "</td>
+        <td>" . htmlspecialchars($row['phone']) . "</td>
+        <td>" . htmlspecialchars($row['created_at']) . "</td>
+        <td><a href='#' onclick='loadUpdateForm(" . htmlspecialchars($row['id']) . ")' class='action_link'>Update</a></td>
+      </tr>";
     }
     echo "</table>";
 } else {

@@ -1,8 +1,6 @@
 <?php
-ob_start();
 
-// Start the session at the beginning
-session_start();
+ob_start();
 
 // Include database connection
 include 'db_connect.php';
@@ -16,19 +14,15 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id); // "i" means the parameter is an integer
 
     if ($stmt->execute()) {
-        // Redirect back to the student list after deletion
-        header("Location: index.php");
-        exit();
+        echo 1; // Success response
     } else {
-$delete_msg. $conn->error;
+        echo 0; // Failure response
     }
 
     $stmt->close();
 } else {
-    // Redirect if no id is provided
-    header("Location: index.php");
-    exit();
+    // No ID provided, return failure response
+    echo 0; // Indicate that the deletion failed due to invalid request
 }
 
 $conn->close();
-

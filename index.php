@@ -16,7 +16,7 @@
     </div>
 
     <div class="box">
-        <button class="button" onclick="delete_student()">Delete student</button>
+        <button class="button" onclick="delete_students()">Delete student</button>
     </div>
 </div>
 
@@ -29,15 +29,13 @@
 </div>
 
 <div id="updateStudent" class="form-container" style="display: none;">
-    <?php include 'update_students.php'; ?>
+    <?php //include 'update_students.php';
+    include 'updater.php';
+    ?>
 </div>
 
 <div id="deleteStudent" class="form-container" style="display: none;">
     <?php include 'delete_students.php'; ?>
 </div>
-
-
-
-
 
 <?php include 'footer.php'; ?>

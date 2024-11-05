@@ -28,7 +28,7 @@ img {
 }
 
 a:link {
-  color: orange;
+  color: white;
   text-decoration: none;
 }
 
@@ -37,13 +37,12 @@ a:visited {
 }
 
 a:hover {
-  color: #800037;
+  color: green;
 }
 
 a:active {
   color: blue;
 }
-
 
 @media only screen and (max-width: 500px) {
   .col-s-1 {
@@ -145,7 +144,6 @@ a:active {
   }
 }
 
-
 .menu ul {
   list-style-type: none;
   margin: 5px;
@@ -155,8 +153,8 @@ a:active {
 .menu li {
   padding: 7px;
   margin-bottom: 7px;
-  background-color: #00FFFF;
-  color: #4B0082;
+  background-color: #00ffff;
+  color: #4b0082;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
@@ -164,8 +162,6 @@ a:active {
   background-color: orange;
   box-shadow: 0px 0px 115px -6px rgba(15, 24, 61, 1);
 }
-
-
 
 .footer {
   background-color: #100c08;
@@ -192,59 +188,88 @@ a:active {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  background-color: #ffffff;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #students td,
 #students th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
 }
 
 #students tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f3f3f3;
 }
 
 #students tr:hover {
-  background-color: #ddd;
+  background-color: #e0f7fa;
 }
 
 #students th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 14px;
+  padding-bottom: 14px;
   text-align: left;
-  background-color: #04AA6D;
+  background-color: #009688;
   color: white;
 }
 
-/* form styling*/
-input[type=text],
-select {
+/* Button Styling */
+.button {
+  color: white;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button-edit {
+  background-color: #009688;
+}
+
+.button-save {
+  background-color: #ff9800;
+}
+
+.button-cancel {
+  background-color: #f44336;
+}
+
+/* Form Styling for Edit Mode */
+input[type="text"],
+input[type="number"] {
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+  margin: 6px 0;
 }
 
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+/* Toggle Visibility */
+.hidden {
+  display: none;
 }
 
-input[type=submit]:hover {
-  background-color: #45a049;
+.view-mode {
+  display: inline;
+  color: #333;
 }
 
-
-
+.edit-mode {
+  display: inline;
+  color: #333;
+}
 /* box and other*/
 
 ft {
@@ -264,8 +289,6 @@ ft {
   position: block;
 }
 
-
-
 .boxB {
   background: yellow;
   width: 300px;
@@ -278,7 +301,6 @@ ft {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 20px;
 }
-
 
 .boxC {
   background: yellowgreen;
@@ -297,17 +319,16 @@ ft {
   display: flex;
   justify-content: space-around;
   margin-top: 100px;
-
 }
 
 .box {
   display: flex;
   justify-content: center;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   font-size: 18px;
   color: white;
-  border-color: #00FFFF;
-  box-shadow: 0px 30px 60px 0px #c5cf0846;
+  border-color: #00ffff;
+  box-shadow: 10px 5px 5px grey;
   width: 20%;
   text-align: center;
   height: 200px;
@@ -315,13 +336,36 @@ ft {
 
 .button {
   color: white;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: none;
   font-size: 18px;
   cursor: pointer;
+}
+.button:hover {
+  opacity: 0.9;
+}
+
+.button-edit {
+  background-color: #009879;
+}
+.button-save {
+  background-color: #ff9800;
+}
+.button-cancel {
+  background-color: #f44336;
 }
 
 .form-container {
   display: none;
   margin-top: 20px;
+}
+.hidden{
+  display:none;
+}
+.view-mode {
+  color: #333;
+}
+
+.edit-mode {
+  color: #333;
 }

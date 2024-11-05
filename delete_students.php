@@ -31,10 +31,11 @@ if ($result->num_rows > 0) {
                 <td>" . htmlspecialchars($row['phone']) . "</td>
                 <td>" . htmlspecialchars($row['created_at']) . "</td>
                 <td>
-                <a href='#' class='delete-btn' data-id='" .htmlspecialchars($row['id']) ."' onclick='return false;'>Delete</a>                  
+                    <a href=\"javascript:void(0);\" onclick=\"deleteRow(" . (int)$row['id'] . ");\" class=\"action_link\">Delete</a>
                 </td>
               </tr>";
     }
+    
     echo "</table>";
 } else {
     echo "0 students found.";
