@@ -1,45 +1,25 @@
 <?php
+// Database connection
 include 'db_connect.php';
 
-// Check if student ID is provided
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    // Fetch the student details
-    $stmt = $conn->prepare("SELECT * FROM students WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $student = $result->fetch_assoc();
+if (isset($_POST['id']) && isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['created_at'])) {
+    $id = intval($_POST['id']);
+    $first_name = $conn->real_escape_string($_POST['first_name']);
+    $last_name = $conn->real_escape_string($_POST['last_name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $phone = intval($_POST['phone']);
+    //$created_at = intval($_POST['created_at']);
+
+    // Prepare and execute update query
+    $sql = "UPDATE students SET first_name='$first_name', last_name='$last_name', email='$email', phone='$phone' WHERE id=$id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "success"; // return success string
     } else {
-        exit("Student not found.");
+        echo "error"; // return error string
     }
-    $stmt->close();
+} else {
+    echo "error"; // return error string if inputs are invalid
 }
 
-// Handle the update
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-
-    $stmt = $conn->prepare("UPDATE students SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE id = ?");
-    $stmt->bind_param("ssssi", $first_name, $last_name, $email, $phone, $id);
-
-    if ($stmt->execute()) {
-        echo "Student updated successfully.";
-    } else {
-        echo "Error updating student: " . $stmt->error;
-    }
-
-    $stmt->close();
-    exit;
-}
 $conn->close();
-?>
-
-<!-- Update form -->
-<form id="updateForm" method="POST" onsubmit="submitUpdateForm(event, <?php echo $id; ?>)">
-    <!-- Form fields here -->
-</form>

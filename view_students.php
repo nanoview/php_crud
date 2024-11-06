@@ -8,7 +8,7 @@ $sql = "SELECT id, first_name, last_name, email, phone, created_at FROM students
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<h1>Students List</h1>";
+    echo "<h1 style='color:fuchsia'>Students List</h1>";
     echo '<table id="students">
             <tr>
                 <th>ID</th>

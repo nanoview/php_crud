@@ -103,52 +103,76 @@ function loadUpdateForm(id) {
 }
 */
 
-function submitUpdateForm(event, id) {
-  event.preventDefault(); // Prevent normal form submission
-
-  $.ajax({
-      url: 'update_action.php',
-      type: 'POST',
-      data: $('#updateForm').serialize(), // Send form data
-      success: function(response) {
-          alert(response); // Alert success message or error
-          update_student(); // Call function to refresh the student list
-      }
-  });
-}
-
 function enableEdit(id) {
+  // Switch to edit mode by toggling hidden class
   $(`#row-${id} .view-mode`).hide();
-  $(`#row-${id} .edit-mode`).removeClass('hidden');
+  $(`#row-${id} .edit-mode`).removeClass('hidden').show();
+
+  // Populate the input fields with current values
+  const firstName = $(`#row-${id} span[data-field="first_name"]`).text();
+  const lastName = $(`#row-${id} span[data-field="last_name"]`).text();
+  const email = $(`#row-${id} span[data-field="email"]`).text();
+  const phone = $(`#row-${id} span[data-field="phone"]`).text();
+  const createdAt = $(`#row-${id} span[data-field="created_at"]`).text();
+
+  // Set values of input fields
+  $(`#row-${id} input[data-field="first_name"]`).val(firstName);
+  $(`#row-${id} input[data-field="last_name"]`).val(lastName);
+  $(`#row-${id} input[data-field="email"]`).val(email);
+  $(`#row-${id} input[data-field="phone"]`).val(phone);
+  $(`#row-${id} input[data-field="created_at"]`).val(createdAt);
 }
 
 function saveEdit(id) {
-  const newName = $(`#row-${id} input[data-field="name"]`).val();
+  const newFirstName = $(`#row-${id} input[data-field="first_name"]`).val();
+  const newLastName = $(`#row-${id} input[data-field="last_name"]`).val();
   const newEmail = $(`#row-${id} input[data-field="email"]`).val();
-  const newAge = $(`#row-${id} input[data-field="age"]`).val();
+  const newPhone = $(`#row-${id} input[data-field="phone"]`).val();
+  const newCreatedAt = $(`#row-${id} input[data-field="created_at"]`).val();
+
+  // Validation
+  if (!newFirstName || !newLastName || !newEmail || !newPhone || !newCreatedAt) {
+    alert("All fields must be filled out!");
+    return;
+  }
 
   $.ajax({
-      url: "update.php",
-      type: "POST",
-      data: { id: id, name: newName, email: newEmail, age: newAge },
-      success: function(response) {
-          if (response === "success") {
-              $(`#row-${id} span[data-field="name"]`).text(newName);
-              $(`#row-${id} span[data-field="email"]`).text(newEmail);
-              $(`#row-${id} span[data-field="age"]`).text(newAge);
+    url: "update_action.php",
+    type: "POST",
+    data: { 
+      id: id, 
+      first_name: newFirstName, 
+      last_name: newLastName, 
+      email: newEmail, 
+      phone: newPhone, 
+      created_at: newCreatedAt
+    },
+    success: function(response) {
+      if (response === "success") {
+        // Update view mode with new data
+        $(`#row-${id} span[data-field="first_name"]`).text(newFirstName);
+        $(`#row-${id} span[data-field="last_name"]`).text(newLastName);
+        $(`#row-${id} span[data-field="email"]`).text(newEmail);
+        $(`#row-${id} span[data-field="phone"]`).text(newPhone);
+        $(`#row-${id} span[data-field="created_at"]`).text(newCreatedAt);
 
-              $(`#row-${id} .edit-mode`).addClass('hidden');
-              $(`#row-${id} .view-mode`).show();
+        // Hide edit mode, show view mode
+        $(`#row-${id} .edit-mode`).addClass('hidden').hide();
+        $(`#row-${id} .view-mode`).show();
 
-              alert("Record updated successfully!");
-          } else {
-              alert("Update failed!");
-          }
+        alert("Record updated successfully!");
+      } else {
+        alert("Update failed!");
       }
+    },
+    error: function() {
+      alert("An error occurred while updating.");
+    }
   });
 }
 
 function cancelEdit(id) {
-  $(`#row-${id} .edit-mode`).addClass('hidden');
+  // Hide edit mode, show view mode
+  $(`#row-${id} .edit-mode`).addClass('hidden').hide();
   $(`#row-${id} .view-mode`).show();
 }

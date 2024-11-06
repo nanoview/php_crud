@@ -1,9 +1,9 @@
 body {
-  background-color: rgb(2, 2, 2);
+  background-color:black;
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
-  color: orange;
+  color: green;
 }
 
 * {
@@ -28,7 +28,7 @@ img {
 }
 
 a:link {
-  color: white;
+  color: rgb(201, 201, 4);
   text-decoration: none;
 }
 
@@ -190,7 +190,7 @@ a:active {
   width: 100%;
   background-color: #ffffff;
   margin-top: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(64, 75, 149, 0.1);
 }
 
 #students td,
@@ -212,12 +212,12 @@ a:active {
   padding-bottom: 14px;
   text-align: left;
   background-color: #009688;
-  color: white;
+  color: rgb(86, 7, 7);
 }
 
 /* Button Styling */
 .button {
-  color: white;
+  color: #ae04cc;
   padding: 10px 16px;
   font-size: 14px;
   font-weight: bold;
@@ -244,32 +244,22 @@ a:active {
 }
 
 /* Form Styling for Edit Mode */
-input[type="text"],
-input[type="number"] {
+.form {
+  border-radius: 5px;
+  background-color:rgba(0, 0, 0, 0.258);
+  padding: 20px;
+  color:fuchsia;
+  text-decoration: double;
+}
+
+input[type="text"], input[type="email"], input[type="number"] {
   width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin: 6px 0;
+  padding: 8px;  /* Adjust padding to match other fields */
+  box-sizing: border-box;  /* Ensure padding doesn't affect width */
+  font-size: 14px;  /* Adjust font size for consistency */
 }
 
-/* Toggle Visibility */
-.hidden {
-  display: none;
-}
 
-.view-mode {
-  display: inline;
-  color: #333;
-}
-
-.edit-mode {
-  display: inline;
-  color: #333;
-}
 /* box and other*/
 
 ft {
@@ -319,12 +309,13 @@ ft {
   display: flex;
   justify-content: space-around;
   margin-top: 100px;
+  align-items: center;
 }
 
 .box {
   display: flex;
   justify-content: center;
-  background-color: #4caf50;
+  background-color: #009688;
   font-size: 18px;
   color: white;
   border-color: #00ffff;
@@ -336,7 +327,7 @@ ft {
 
 .button {
   color: white;
-  background-color: #4caf50;
+  background-color: #009688;
   border: none;
   font-size: 18px;
   cursor: pointer;
@@ -355,17 +346,16 @@ ft {
   background-color: #f44336;
 }
 
-.form-container {
-  display: none;
-  margin-top: 20px;
+.hidden {
+  display: none !important;
 }
-.hidden{
-  display:none;
-}
+
 .view-mode {
+  display: inline;
   color: #333;
 }
 
 .edit-mode {
+  display: inline;
   color: #333;
 }
