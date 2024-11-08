@@ -1,9 +1,7 @@
 <?php
 
 ob_start(); // Start a single output buffer
-
-include 'db_connect.php'; // Ensure this file has no output at all
-
+include 'db_connect.php';
 $sql = "SELECT id, first_name, last_name, email, phone, created_at FROM students";
 $result = $conn->query($sql);
 

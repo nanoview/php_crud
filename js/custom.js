@@ -1,107 +1,67 @@
-function hideAllSections() {
-  var sections = document.getElementsByClassName("form-container");
-  for (var i = 0; i < sections.length; i++) {
-    sections[i].style.display = "none";
-  }
-}
 
-function showSection(sectionId) {
-  hideAllSections(); // Hide all sections
-  var formContainer = document.getElementById(sectionId);
-  formContainer.style.display = "block"; // Show the selected section
-}
 
-function showForm() {
-  showSection("studentForm");
-}
+function loadForm(containerId, page) {
+  // Hide all containers before displaying the selected one
+  $('.form-container').hide();
 
-function view_students() {
-    $.ajax({
-        url: 'view_students.php',
-        type: 'GET',
-        success: function(data) {
-            $('#studentTable').html(data);  // Update table with fresh data
-            showSection("studentTable");    // Ensure the section is visible
-        }
-    });
-}
+  // Show loading indicator
+  $('#' + containerId).html('<p>Loading...</p>').show();
 
-/*
-function update_student() {
+  // Load the content of the specified page
   $.ajax({
-    url:'update_students.php',
-    type: 'GET',
-    success: function(data){
-      $('#updateStudent').html(data);
-      showSection("updateStudent");
-    }
-  })
+      url: page,
+      type: 'GET',
+      success: function(response) {
+          $('#' + containerId).html(response);
+      },
+      error: function(xhr, status, error) {
+          $('#' + containerId).html('<p>Error loading content: ' + error + '</p>');
+      }
+  });
 }
-*/
+function submitAddStudentForm(event) {
+  event.preventDefault(); // Prevent the form from submitting traditionally
 
-/* New function for updater.php for interactive editing*/
-function update_student() {
   $.ajax({
-    url:'updater.php',
-    type: 'GET',
-    success: function(data){
-      $('#updateStudent').html(data);
-      showSection("updateStudent");
-    }
-  })
-}
+      url: 'includes/add_action.php', // PHP file that handles the form submission
+      type: 'POST',
+      data: $('#addStudentForm').serialize(), // Serialize the form data
+      success: function(response) {
+          alert(response); // Show a success message (you can customize this)
+          $('#addStudentForm')[0].reset(); // Reset the form
 
-//function delete_student() {
-  //showSection("deleteStudent");
-
-  function delete_students() {
-    $.ajax({
-        url: 'delete_students.php',
-        type: 'GET',
-        success: function(data) {
-            console.log(data); // Log the response to the console
-            $('#deleteStudent').html(data);  // Update section with new content
-            showSection("deleteStudent");     // Ensure the section is visible
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error: " + status + ": " + error); // Log any AJAX errors
-        }
-    });
+          // Optionally, you can reload the form content dynamically
+          loadForm('studentForm', 'includes/student_form.php'); // Reload or update content
+      },
+      error: function(xhr, status, error) {
+          console.error("Submission failed: " + status + ": " + error);
+      }
+  });
 }
 
 
 function deleteRow(id) {
-  $.ajax({
-      url: 'delete_action.php',
-      type: 'GET',
-      data: { id: id },
-      success: function(response) {
-          if (response == 1) {
-              // Remove the row from the DOM
-              $('#row_' + id).remove();
-              
-              // Refresh the student list to reflect the deletion
-              delete_students();
-          } else {
-              alert('Failed to delete the row.');
-          }
-      }
+  $.get('includes/delete_action.php', { id: id }, function(response) {
+    if (response == 1) {
+      $('#row_' + id).fadeOut(300, function() {
+        $(this).remove();
+      });
+      reloadStudentList();
+    } else {
+      alert('Failed to delete the row.');
+    }
+  }).fail(function(xhr, status, error) {
+    console.error("AJAX Error: " + status + ": " + error);
   });
 }
 
-/*
-function loadUpdateForm(id) {
-  $.ajax({
-      url: 'update_action.php',
-      type: 'GET',
-      data: { id: id },
-      success: function(data) {
-          $('#updateStudent').html(data); // Display the update form in the designated section
-          showSection("updateStudent"); // Show the update form section
-      }
+function reloadStudentList() {
+  $.get('includes/delete_students.php', function(response) {
+    $('#deleteStudent').html(response); // Replace the table content dynamically
+  }).fail(function(xhr, status, error) {
+    console.error("AJAX Error: " + status + ": " + error);
   });
 }
-*/
 
 function enableEdit(id) {
   // Switch to edit mode by toggling hidden class
@@ -137,7 +97,7 @@ function saveEdit(id) {
   }
 
   $.ajax({
-    url: "update_action.php",
+    url: "includes/update_action.php",
     type: "POST",
     data: { 
       id: id, 

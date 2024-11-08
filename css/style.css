@@ -176,7 +176,7 @@ a:active {
 }
 
 .aside {
-  background-color: none;
+  /* background-color: none; */
   right: 0px;
   padding: 5px;
   width: auto;
