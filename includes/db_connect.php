@@ -5,4 +5,4 @@ $password = "";             // Replace with your DB password
 $dbname = "stunts_db";
 
 // Create connection
-$conn = new mysqli($serverName, $username, $password, $dbname);git 
+$conn = new mysqli($serverName, $username, $password, $dbname);
