@@ -1,8 +1,8 @@
 <?php
-$serverName = "";  // Replace with your server host (if not localhost)
-$username = "";         // Replace with your DB username
+$serverName = "localhost";  // Replace with your server host (if not localhost)
+$username = "lular";         // Replace with your DB username
 $password = "";             // Replace with your DB password
-$dbname = "";
+$dbname = "stunts_db";
 
 // Create connection
-$conn = new mysqli($serverName, $username, $password, $dbname);
+$conn = new mysqli($serverName, $username, $password, $dbname);git 
