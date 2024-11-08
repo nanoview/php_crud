@@ -1,40 +1,37 @@
-<?php include 'header.php'; ?>
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Student Management</title>
+</head>
+<body>
 
-
-
-<div class="mycontainer">
+<div class="myContainer">
     <div class="box">
-        <button class="button" onclick="showForm()">Add student</button>
+        <button class="button" onclick="loadForm('studentForm', 'includes/student_form.php')">Add Student</button>
     </div>
-
     <div class="box">
-        <button class="button" onclick="view_students()">View students</button>
+        <button class="button" onclick="loadForm('studentTable', 'includes/view_students.php')">View Students</button>
     </div>
-
     <div class="box">
-        <button class="button" onclick="update_student()">Update student</button>
+        <button class="button" onclick="loadForm('updateStudent', 'includes/updater.php')">Update Student</button>
     </div>
-
     <div class="box">
-        <button class="button" onclick="delete_student()">Delete student</button>
+        <button class="button" onclick="loadForm('deleteStudent', 'includes/delete_students.php')">Delete Student</button>
     </div>
 </div>
 
-<div id="studentForm" class="form-container" style="display: none;">
-    <?php include 'add_student.php'; ?>
-</div>
+<!-- Sections to be populated with AJAX content -->
+<div id="studentForm" class="form-container" style="display: none;"></div>
+<div id="studentTable" class="form-container" style="display: none;"></div>
+<div id="updateStudent" class="form-container" style="display: none;"></div>
+<div id="deleteStudent" class="form-container" style="display: none;"></div>
 
-<div id="studentTable" class="form-container" style="display: none;">
-    <?php include 'view_students.php'; ?>
-</div>
+<?php include 'includes/footer.php'; ?>
 
-<div id="updateStudent" class="form-container" style="display: none;">
-    <?php include 'update_students.php'; ?>
-</div>
-
-<div id="deleteStudent" class="form-container" style="display: none;">
-    <?php include 'delete_student.php'; ?>
-</div>
-
-
-<?php include 'footer.php'; ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
