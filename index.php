@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!-- Global message bar -->
+<div id="globalMessage" class="global-message hidden"></div>
+
 <div class="myContainer">
     <div class="box">
         <button class="button" onclick="loadForm('studentForm', 'includes/student_form.php')">Add Student</button>

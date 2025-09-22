@@ -12,10 +12,18 @@ function loadForm(containerId, page) {
       url: page,
       type: 'GET',
       success: function(response) {
-          $('#' + containerId).html(response);
+          // If the response contains a table, wrap it for horizontal scroll on mobile
+          const $html = $('<div>').html(response);
+          $html.find('table').each(function(){
+            $(this).wrap('<div class="table-responsive"></div>');
+          });
+          $('#' + containerId).html($html.html());
+      showMessage('Loaded content successfully.', 'success');
       },
       error: function(xhr, status, error) {
-          $('#' + containerId).html('<p>Error loading content: ' + error + '</p>');
+      const msg = xhr && xhr.responseText ? xhr.responseText : (error || 'Unknown error');
+      $('#' + containerId).html('<p>Error loading content: ' + msg + '</p>');
+      showMessage('Error loading content: ' + msg, 'error');
       }
   });
 }
@@ -23,18 +31,24 @@ function submitAddStudentForm(event) {
   event.preventDefault(); // Prevent the form from submitting traditionally
 
   $.ajax({
-      url: 'includes/add_action.php', // PHP file that handles the form submission
+      url: 'includes/add_action.php',
       type: 'POST',
-      data: $('#addStudentForm').serialize(), // Serialize the form data
-      success: function(response) {
-          alert(response); // Show a success message (you can customize this)
-          $('#addStudentForm')[0].reset(); // Reset the form
-
-          // Optionally, you can reload the form content dynamically
-          loadForm('studentForm', 'includes/student_form.php'); // Reload or update content
+      data: $('#addStudentForm').serialize(),
+      dataType: 'json',
+      success: function(resp) {
+        if (resp && resp.success) {
+          showMessage(resp.message || 'Student added successfully.', 'success');
+          $('#addStudentForm')[0].reset();
+          loadForm('studentForm', 'includes/student_form.php');
+        } else {
+          showMessage((resp && resp.message) ? resp.message : 'Submission failed', 'error');
+        }
       },
       error: function(xhr, status, error) {
-          console.error("Submission failed: " + status + ": " + error);
+        let msg = 'Unknown error';
+        try { const j = JSON.parse(xhr.responseText); if (j && j.message) msg = j.message; } catch(e) { msg = xhr.responseText || error || msg; }
+        console.error('Submission failed: ' + status + ': ' + msg);
+        showMessage('Submission failed: ' + msg, 'error');
       }
   });
 }
@@ -51,7 +65,9 @@ function deleteRow(id) {
       alert('Failed to delete the row.');
     }
   }).fail(function(xhr, status, error) {
-    console.error("AJAX Error: " + status + ": " + error);
+    const msg = xhr && xhr.responseText ? xhr.responseText : (error || 'Unknown error');
+    console.error("AJAX Error: " + status + ": " + msg);
+    showMessage('Delete failed: ' + msg, 'error');
   });
 }
 
@@ -59,7 +75,9 @@ function reloadStudentList() {
   $.get('includes/delete_students.php', function(response) {
     $('#deleteStudent').html(response); // Replace the table content dynamically
   }).fail(function(xhr, status, error) {
-    console.error("AJAX Error: " + status + ": " + error);
+    const msg = xhr && xhr.responseText ? xhr.responseText : (error || 'Unknown error');
+    console.error("AJAX Error: " + status + ": " + msg);
+    showMessage('Reload list failed: ' + msg, 'error');
   });
 }
 
@@ -121,12 +139,16 @@ function saveEdit(id) {
         $(`#row-${id} .view-mode`).show();
 
         alert("Record updated successfully!");
+        showMessage('Record updated successfully!', 'success');
       } else {
         alert("Update failed!");
+        showMessage('Update failed', 'error');
       }
     },
-    error: function() {
+    error: function(xhr, status, error) {
+      const msg = xhr && xhr.responseText ? xhr.responseText : (error || 'Unknown error');
       alert("An error occurred while updating.");
+      showMessage('Update error: ' + msg, 'error');
     }
   });
 }
@@ -136,3 +158,36 @@ function cancelEdit(id) {
   $(`#row-${id} .edit-mode`).addClass('hidden').hide();
   $(`#row-${id} .view-mode`).show();
 }
+
+// Global message helper
+function showMessage(text, type) {
+  const bar = $('#globalMessage');
+  if (!bar.length) return;
+  bar.removeClass('hidden success error info');
+  const css = type === 'error' ? 'error' : (type === 'info' ? 'info' : 'success');
+  bar.addClass(css).text(text).fadeIn(150);
+
+  // Auto-hide after 4 seconds
+  clearTimeout(window.__msgTimer);
+  window.__msgTimer = setTimeout(() => {
+    bar.fadeOut(200, function(){ $(this).addClass('hidden').show(); });
+  }, 4000);
+}
+
+// On page load, check DB health and notify globally
+$(function(){
+  $.ajax({
+    url: 'includes/health.php',
+    method: 'GET',
+    dataType: 'json'
+  }).done(function(data){
+    if (data && data.status === 'ok') {
+      showMessage('Connected to database', 'success');
+    } else {
+      showMessage('Database issue detected', 'error');
+    }
+  }).fail(function(xhr){
+    const msg = xhr && xhr.responseText ? xhr.responseText : 'DB health check failed';
+    showMessage(msg, 'error');
+  });
+});
